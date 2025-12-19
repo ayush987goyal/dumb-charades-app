@@ -27,8 +27,8 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
   const warningPlayedRef = useRef(false)
   const finalPlayedRef = useRef(false)
 
-  const [playWarning] = useSound("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/warning-rFdKLZ9LTus7mo7kruaQlOOpGh8Fkw.mp3", { volume: 0.5 })
-  const [playFinish] = useSound("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/finish-FIemrXrykw4VNwrK5yNGcpRBcAZ1wU.mp3", { volume: 0.5 })
+  const [playWarning] = useSound("/warning.mp3", { volume: 0.5 })
+  const [playFinish] = useSound("/finish.mp3", { volume: 0.5 })
 
   useEffect(() => {
     const movies = getMoviesByCategories(config.categories)
