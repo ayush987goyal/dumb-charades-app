@@ -7,7 +7,7 @@ import { Progress } from "@/components/ui/progress"
 import { SkipForward, Check, Trophy } from "lucide-react"
 import type { GameConfig } from "@/lib/types"
 import { getMoviesByCategories, getRandomMovie } from "@/lib/movies"
-import { AudioContext } from "standardized-audio-context"
+import useSound from "use-sound"
 
 interface GamePlayProps {
   config: GameConfig
@@ -27,48 +27,8 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
   const warningPlayedRef = useRef(false)
   const finalPlayedRef = useRef(false)
 
-  const playWarningSound = useCallback(() => {
-    const audioContext = new AudioContext()
-    const beepDuration = 0.1
-    const beepGap = 0.1
-
-    for (let i = 0; i < 3; i++) {
-      const oscillator = audioContext.createOscillator()
-      const gainNode = audioContext.createGain()
-
-      oscillator.connect(gainNode)
-      gainNode.connect(audioContext.destination)
-
-      oscillator.frequency.value = 800
-      oscillator.type = "sine"
-
-      const startTime = audioContext.currentTime + i * (beepDuration + beepGap)
-      gainNode.gain.setValueAtTime(0.3, startTime)
-      gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + beepDuration)
-
-      oscillator.start(startTime)
-      oscillator.stop(startTime + beepDuration)
-    }
-  }, [])
-
-  const playFinalSound = useCallback(() => {
-    const audioContext = new AudioContext()
-    const oscillator = audioContext.createOscillator()
-    const gainNode = audioContext.createGain()
-
-    oscillator.connect(gainNode)
-    gainNode.connect(audioContext.destination)
-
-    oscillator.frequency.value = 400
-    oscillator.type = "sine"
-
-    const startTime = audioContext.currentTime
-    gainNode.gain.setValueAtTime(0.3, startTime)
-    gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.5)
-
-    oscillator.start(startTime)
-    oscillator.stop(startTime + 0.5)
-  }, [])
+  const [playWarning] = useSound("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/warning-rFdKLZ9LTus7mo7kruaQlOOpGh8Fkw.mp3", { volume: 0.5 })
+  const [playFinish] = useSound("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/finish-FIemrXrykw4VNwrK5yNGcpRBcAZ1wU.mp3", { volume: 0.5 })
 
   useEffect(() => {
     const movies = getMoviesByCategories(config.categories)
@@ -85,7 +45,7 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
     if (!isActive || timeRemaining <= 0) return
 
     if (timeRemaining === 10 && !warningPlayedRef.current) {
-      playWarningSound()
+      playWarning()
       warningPlayedRef.current = true
     }
 
@@ -100,18 +60,18 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [isActive, timeRemaining, playWarningSound])
+  }, [isActive, timeRemaining, playWarning])
 
   useEffect(() => {
     if (!isActive && timeRemaining === 0 && !finalPlayedRef.current) {
       finalPlayedRef.current = true
-      playFinalSound()
+      playFinish()
 
       setTimeout(() => {
         onGameEnd(score, skipped, score + skipped, completedMovieTitles)
       }, 600)
     }
-  }, [isActive, timeRemaining, score, skipped, completedMovieTitles, onGameEnd, playFinalSound])
+  }, [isActive, timeRemaining, score, skipped, completedMovieTitles, onGameEnd, playFinish])
 
   const getNextMovie = useCallback(() => {
     const excludedTitles = new Set([...globalCompletedMovieTitles, ...shownInThisTurn])
