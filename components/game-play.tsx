@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress"
 import { SkipForward, Check, Trophy } from "lucide-react"
 import type { GameConfig } from "@/lib/types"
 import { getMoviesByCategories, getRandomMovie } from "@/lib/movies"
+import { AudioContext } from "standardized-audio-context"
 
 interface GamePlayProps {
   config: GameConfig
@@ -27,7 +28,7 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
   const finalPlayedRef = useRef(false)
 
   const playWarningSound = useCallback(() => {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
+    const audioContext = new AudioContext()
     const beepDuration = 0.1
     const beepGap = 0.1
 
@@ -51,7 +52,7 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
   }, [])
 
   const playFinalSound = useCallback(() => {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)()
+    const audioContext = new AudioContext()
     const oscillator = audioContext.createOscillator()
     const gainNode = audioContext.createGain()
 
