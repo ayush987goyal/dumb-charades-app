@@ -27,8 +27,8 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
   const warningPlayedRef = useRef(false)
   const finalPlayedRef = useRef(false)
 
-  const [playWarning] = useSound("/warning.mp3", { volume: 0.5 })
-  const [playFinish] = useSound("/finish.mp3", { volume: 0.5 })
+  const [playWarning] = useSound("/warning.mp3")
+  const [playFinish] = useSound("/finish.mp3")
 
   useEffect(() => {
     const movies = getMoviesByCategories(config.categories)
