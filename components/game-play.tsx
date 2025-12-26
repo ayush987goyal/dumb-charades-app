@@ -99,6 +99,9 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
 
   const handleSkip = useCallback(() => {
     setSkipped((prev) => prev + 1)
+    if (currentMovie) {
+      setCompletedMovieTitles((prev) => new Set([...prev, currentMovie]))
+    }
     getNextMovie()
   }, [getNextMovie])
 
