@@ -36,7 +36,7 @@ const TIME_OPTIONS = [
 
 export function GameSetup({ onStartGame }: GameSetupProps) {
   const [timePerRound, setTimePerRound] = useState(120)
-  const [selectedCategories, setSelectedCategories] = useState<MovieCategory[]>(["bollywood", "hollywood"])
+  const [selectedCategories, setSelectedCategories] = useState<MovieCategory[]>(["bollywood"])
   const [gameMode, setGameMode] = useState<"individual" | "team">("team")
   const [completedCount, setCompletedCount] = useState(getCompletedMovies().length)
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false)
