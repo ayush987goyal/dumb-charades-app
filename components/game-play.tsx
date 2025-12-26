@@ -27,8 +27,8 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
   const warningPlayedRef = useRef(false)
   const finalPlayedRef = useRef(false)
 
-  const [playWarning] = useSound("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_Q4Q3AIAAIzvfSb1J3dton3NCG0xN/gksMd08pHBOmaXtWSj7BYY/public/warning.mp3")
-  const [playFinish] = useSound("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/git-blob/prj_Q4Q3AIAAIzvfSb1J3dton3NCG0xN/IKdq1grpJwu_9fxVOxu0lk/public/finish.mp3")
+  const [playWarning] = useSound("/warning.mp3")
+  const [playFinish] = useSound("/finish.mp3")
 
   useEffect(() => {
     const movies = getMoviesByCategories(config.categories)
@@ -99,9 +99,6 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
 
   const handleSkip = useCallback(() => {
     setSkipped((prev) => prev + 1)
-    if (currentMovie) {
-      setCompletedMovieTitles((prev) => new Set([...prev, currentMovie]))
-    }
     getNextMovie()
   }, [getNextMovie])
 
