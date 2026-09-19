@@ -1,12 +1,26 @@
 {
-  "name": "Dumb Charades - Party Game",
+  "name": "Dumb Charades - Bollywood & Global Movie Generator",
   "short_name": "Dumb Charades",
+  "description": "Play Dumb Charades with 500+ actable Bollywood, Hollywood, Tollywood, and Kollywood movies, word counts, round timer, and team scoreboard.",
+  "categories": ["games", "entertainment"],
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
       "purpose": "maskable"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/web-app-manifest-512x512.png",
