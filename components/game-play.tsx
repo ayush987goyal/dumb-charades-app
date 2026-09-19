@@ -103,7 +103,7 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
       setCompletedMovieTitles((prev) => new Set([...prev, currentMovie]))
     }
     getNextMovie()
-  }, [getNextMovie])
+  }, [getNextMovie, currentMovie])
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
@@ -112,6 +112,7 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
   }
 
   const progressPercentage = ((config.timePerRound - timeRemaining) / config.timePerRound) * 100
+  const wordCount = currentMovie ? currentMovie.trim().split(/[\s-]+/).filter(Boolean).length : 0
 
   if (!currentMovie) {
     return (
@@ -159,7 +160,10 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
           </div>
 
           {/* Movie Display */}
-          <div className="bg-primary/10 rounded-xl p-6 sm:p-8 md:p-12 text-center border-2 border-primary/20">
+          <div className="bg-primary/10 rounded-xl p-6 sm:p-8 md:p-12 text-center border-2 border-primary/20 space-y-3 sm:space-y-4">
+            <div className="inline-flex items-center rounded-full bg-primary/15 px-3 py-1 text-xs sm:text-sm font-semibold text-primary tracking-wide uppercase">
+              {wordCount} {wordCount === 1 ? "Word" : "Words"}
+            </div>
             <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary text-balance leading-tight break-words">
               {currentMovie}
             </p>
