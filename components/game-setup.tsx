@@ -22,6 +22,7 @@ import {
 import { type MovieCategory, CATEGORY_LABELS } from "@/lib/movies"
 import type { GameConfig } from "@/lib/types"
 import { clearMovieHistory, getCompletedMovies } from "@/lib/storage"
+import { triggerHaptic } from "@/lib/haptics"
 
 interface GameSetupProps {
   onStartGame: (config: GameConfig) => void
@@ -42,6 +43,7 @@ export function GameSetup({ onStartGame }: GameSetupProps) {
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false)
 
   const handleCategoryToggle = (category: MovieCategory) => {
+    triggerHaptic("light")
     setSelectedCategories((prev) =>
       prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category],
     )
@@ -52,6 +54,7 @@ export function GameSetup({ onStartGame }: GameSetupProps) {
       alert("Please select at least one category")
       return
     }
+    triggerHaptic("start")
     onStartGame({ timePerRound, categories: selectedCategories, gameMode })
   }
 
