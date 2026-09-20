@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label"
 import { User, Clock, Film } from "lucide-react"
 import type { GameConfig } from "@/lib/types"
 import { CATEGORY_LABELS } from "@/lib/movies"
+import { triggerHaptic } from "@/lib/haptics"
 
 interface PlayerNameInputProps {
   onSubmit: (name: string) => void
@@ -23,6 +24,7 @@ export function PlayerNameInput({ onSubmit, gameConfig, currentTeam }: PlayerNam
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (name.trim()) {
+      triggerHaptic("start")
       onSubmit(name.trim())
     }
   }

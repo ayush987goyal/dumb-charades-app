@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress"
 import { SkipForward, Check, Trophy } from "lucide-react"
 import type { GameConfig } from "@/lib/types"
 import { getMoviesByCategories, getRandomMovie } from "@/lib/movies"
+import { triggerHaptic, requestScreenWakeLock } from "@/lib/haptics"
 import useSound from "use-sound"
 
 interface GamePlayProps {
@@ -31,6 +32,16 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
   const [playFinish] = useSound("/finish.mp3")
 
   useEffect(() => {
+    let wakeLock: WakeLockSentinel | null = null
+    requestScreenWakeLock().then((sentinel) => {
+      wakeLock = sentinel
+    })
+    return () => {
+      wakeLock?.release().catch(() => {})
+    }
+  }, [])
+
+  useEffect(() => {
     const movies = getMoviesByCategories(config.categories)
     setAvailableMovies(movies)
     if (movies.length > 0) {
@@ -43,6 +54,10 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
 
   useEffect(() => {
     if (!isActive || timeRemaining <= 0) return
+
+    if (timeRemaining <= 10) {
+      triggerHaptic("warning")
+    }
 
     if (timeRemaining === 10 && !warningPlayedRef.current) {
       playWarning()
@@ -65,6 +80,7 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
   useEffect(() => {
     if (!isActive && timeRemaining === 0 && !finalPlayedRef.current) {
       finalPlayedRef.current = true
+      triggerHaptic("finish")
       playFinish()
 
       setTimeout(() => {
@@ -90,6 +106,7 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
   }, [availableMovies, globalCompletedMovieTitles, shownInThisTurn])
 
   const handleNext = useCallback(() => {
+    triggerHaptic("success")
     setScore((prev) => prev + 1)
     if (currentMovie) {
       setCompletedMovieTitles((prev) => new Set([...prev, currentMovie]))
@@ -98,6 +115,7 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
   }, [getNextMovie, currentMovie])
 
   const handleSkip = useCallback(() => {
+    triggerHaptic("skip")
     setSkipped((prev) => prev + 1)
     if (currentMovie) {
       setCompletedMovieTitles((prev) => new Set([...prev, currentMovie]))
