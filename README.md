@@ -6,15 +6,15 @@ A fast, mobile-first party game and movie generator for playing Dumb Charades wi
 
 ## What is inside
 
-- **814 curated movies across 8 cinema categories:**
-  - **Bollywood (518 titles):** Hand-picked Hindi films from the 1950s through 2026 selected specifically for charades actability. Every movie either breaks down into concrete physical words or has a famous cultural signature pose. See [docs/bollywood-charades-movies-research.md](docs/bollywood-charades-movies-research.md) for the full catalog and acting cues.
-  - **Hollywood (81 titles)**
+- **1,151 curated movies across 8 cinema categories:**
+  - **Bollywood (515 titles):** Hand-picked Hindi films from the 1950s through 2026 selected specifically for charades actability. Every movie either breaks down into concrete physical words or has a famous cultural signature pose. See [docs/bollywood-charades-movies-research.md](docs/bollywood-charades-movies-research.md) for the full catalog and acting cues.
+  - **Hollywood (439 titles):** Animation, franchises, comedies, classics and recent hits that Indian groups know, picked so each title can be acted word by word. See [docs/research/hollywood-library.md](docs/research/hollywood-library.md).
   - **Tollywood (41 titles)**
   - **Kollywood (40 titles)**
-  - **British (35 titles)**
-  - **Korean (35 titles)**
   - **Japanese (35 titles)**
-  - **French (29 titles)**
+  - **Korean (34 titles)**
+  - **French (28 titles)**
+  - **British (19 titles)**
 - **Automatic word count badge:** Each movie card displays the word count (`1 Word`, `4 Words`) right above the title, splitting on spaces and hyphens so the actor immediately knows how many fingers to hold up.
 - **Team and individual modes:** Alternate automatically between Team A and Team B with live team scoreboards, or play free-for-all individual rounds with accuracy tracking.
 - **Configurable round timer with audio and haptic cues:** Choose 1, 2, 3, or 5-minute turns. Plays a warning sound and pulses a 10-second haptic heartbeat countdown before the final buzzer.
