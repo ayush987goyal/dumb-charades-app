@@ -1,38 +1,26 @@
 import { bollywoodMovies } from "./bollywood"
 import { hollywoodMovies } from "./hollywood"
 import { southIndianMovies } from "./south-indian"
-import { britishMovies } from "./british"
-import { frenchMovies } from "./french"
-import { koreanMovies } from "./korean"
-import { japaneseMovies } from "./japanese"
+import { worldCinemaMovies } from "./world-cinema"
 
 export type MovieCategory =
   | "bollywood"
   | "hollywood"
   | "southindian"
-  | "british"
-  | "french"
-  | "korean"
-  | "japanese"
+  | "world"
 
 export const MOVIES_BY_CATEGORY: Record<MovieCategory, string[]> = {
   bollywood: bollywoodMovies,
   hollywood: hollywoodMovies,
   southindian: southIndianMovies,
-  british: britishMovies,
-  french: frenchMovies,
-  korean: koreanMovies,
-  japanese: japaneseMovies,
+  world: worldCinemaMovies,
 }
 
 export const CATEGORY_LABELS: Record<MovieCategory, string> = {
   bollywood: "Bollywood",
   hollywood: "Hollywood",
   southindian: "South Indian",
-  british: "British",
-  french: "French",
-  korean: "Korean",
-  japanese: "Japanese",
+  world: "World Cinema",
 }
 
 export function getMoviesByCategories(categories: MovieCategory[]): string[] {

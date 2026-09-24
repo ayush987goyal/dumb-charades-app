@@ -6,14 +6,11 @@ A fast, mobile-first party game and movie generator for playing Dumb Charades wi
 
 ## What is inside
 
-- **1,166 curated movies across 7 cinema categories:**
+- **1,120 curated movies across 4 categories:**
   - **Bollywood (491 titles):** Hand-picked Hindi films from the 1950s through 2026, including the latest box-office hits, selected specifically for charades actability. Every movie either breaks down into concrete physical words or has a famous cultural signature pose. See [docs/bollywood-charades-movies-research.md](docs/bollywood-charades-movies-research.md) for the full catalog and acting cues.
   - **Hollywood (439 titles):** Animation, franchises, comedies, classics and recent hits that Indian groups know, picked so each title can be acted word by word. See [docs/research/hollywood-library.md](docs/research/hollywood-library.md).
   - **South Indian (120 titles):** Telugu, Tamil, Malayalam and Kannada films that Hindi-speaking groups know, mostly pan-India releases. Titles use the name Hindi audiences saw, with the original in brackets when it differs, e.g. "Makkhi (Eega)". See [docs/research/south-indian-library.md](docs/research/south-indian-library.md).
-  - **Japanese (35 titles)**
-  - **Korean (34 titles)**
-  - **French (28 titles)**
-  - **British (19 titles)**
+  - **World Cinema (70 titles):** Korean hits, Studio Ghibli and anime, and the best-known British, European, Chinese and other world films. See [docs/research/library-quality-and-categories.md](docs/research/library-quality-and-categories.md).
 - **Automatic word count badge:** Each movie card displays the word count (`1 Word`, `4 Words`) right above the title, splitting on spaces and hyphens so the actor immediately knows how many fingers to hold up.
 - **Team and individual modes:** Alternate automatically between Team A and Team B with live team scoreboards, or play free-for-all individual rounds with accuracy tracking.
 - **Configurable round timer with audio and haptic cues:** Choose 1, 2, 3, or 5-minute turns. Plays a warning sound and pulses a 10-second haptic heartbeat countdown before the final buzzer.
@@ -39,7 +36,7 @@ Open `http://localhost:3000` in your browser.
 - `components/player-name-input.tsx`: Turn handoff screen before starting the countdown.
 - `components/game-play.tsx`: Active round timer, word count badge, movie display, wake lock, and Got It / Skip controls.
 - `components/game-results.tsx`: Round summary, player accuracy, and Team A vs. Team B leaderboard.
-- `lib/movies/`: Category movie catalogs (`bollywood.ts`, `hollywood.ts`, `south-indian.ts`, `british.ts`, `french.ts`, `korean.ts`, `japanese.ts`).
+- `lib/movies/`: Category movie catalogs (`bollywood.ts`, `hollywood.ts`, `south-indian.ts`, `world-cinema.ts`).
 - `lib/haptics.ts`: Dual-engine web haptics (`navigator.vibrate` + iOS Safari switch Taptic Engine) and Screen Wake Lock helper.
 - `lib/storage.ts`: `localStorage` persistence for completed movie history.
 - `docs/bollywood-charades-movies-research.md`: Research criteria, primary sources, and acting cues for the Bollywood movie catalog.

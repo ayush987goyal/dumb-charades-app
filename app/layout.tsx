@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     template: "%s | Dumb Charades Movie Generator",
   },
   description:
-    "Free online Dumb Charades movie generator and party timer with 1,000+ actable Bollywood (Hindi), Hollywood, South Indian, Korean, and Japanese movies. Built-in word counts, team scoreboard, and no-repeat history.",
+    "Free online Dumb Charades movie generator and party timer with 1,000+ actable Bollywood (Hindi), Hollywood, South Indian, and World Cinema movies, from Korean hits to Japanese anime. Built-in word counts, team scoreboard, and no-repeat history.",
   keywords: [
     "dumb charades",
     "bollywood dumb charades",
@@ -90,7 +90,7 @@ const jsonLd = {
     priceCurrency: "USD",
   },
   description:
-    "Free online Dumb Charades movie generator and party timer featuring 1,000+ actable Bollywood (Hindi), Hollywood, South Indian, British, French, Korean, and Japanese movies with word counts and team scoring.",
+    "Free online Dumb Charades movie generator and party timer featuring 1,000+ actable Bollywood (Hindi), Hollywood, South Indian, and World Cinema movies with word counts and team scoring.",
 }
 
 export default function RootLayout({
