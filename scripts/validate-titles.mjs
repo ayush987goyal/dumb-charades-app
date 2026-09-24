@@ -10,7 +10,7 @@ const DIR = process.env.TITLES_DIR ?? join(dirname(fileURLToPath(import.meta.url
 // Titles allowed in more than one category: the same film on purpose, or two different films
 // that share a name. Keys are normalised (see norm below). Keep this list short.
 const CROSS_CATEGORY_ALLOW = new Set([
-  "sarkar", // Hindi (2005) and Tamil (2018) are different films
+  // e.g. "sarkar", if the Hindi (2005) and Tamil (2018) films were both listed
 ])
 
 const norm = (s) =>

@@ -72,8 +72,7 @@ export function GameSetup({ onStartGame }: GameSetupProps) {
   const categories: MovieCategory[] = [
     "bollywood",
     "hollywood",
-    "tollywood",
-    "kollywood",
+    "southindian",
     "british",
     "french",
     "korean",
@@ -312,8 +311,8 @@ export function GameSetup({ onStartGame }: GameSetupProps) {
           {/* Footer credit with GitHub link and crawlable category summary */}
           <div className="text-center pt-4 border-t border-border/50 space-y-2">
             <p className="text-xs text-muted-foreground">
-              Free online Dumb Charades movie generator featuring 500+ actable Bollywood (Hindi), Hollywood, Tollywood
-              (Telugu), Kollywood (Tamil), Korean, Japanese, British, and French movies with word counts and team timer.
+              Free online Dumb Charades movie generator featuring 1,000+ actable Bollywood (Hindi), Hollywood, South Indian
+              (Telugu, Tamil, Malayalam, Kannada), Korean, Japanese, British, and French movies with word counts and team timer.
             </p>
             <p className="text-sm text-muted-foreground">
               Made with <span className="text-red-500 inline-block animate-pulse">♥</span> by{" "}
