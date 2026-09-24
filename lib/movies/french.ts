@@ -26,6 +26,5 @@ export const frenchMovies = [
   "Three Colors White",
   "The Diving Bell and the Butterfly",
   "Les Miserables",
-  "Taken",
   "Lucy",
 ]
