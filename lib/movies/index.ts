@@ -40,11 +40,12 @@ export const CATEGORY_LABELS: Record<MovieCategory, string> = {
 }
 
 export function getMoviesByCategories(categories: MovieCategory[]): string[] {
-  const movies: string[] = []
+  const movies = new Set<string>()
   categories.forEach((category) => {
-    movies.push(...MOVIES_BY_CATEGORY[category])
+    MOVIES_BY_CATEGORY[category].forEach((movie) => movies.add(movie))
   })
-  return movies
+  // A Set keeps a title that sits in two selected categories from being drawn twice as often.
+  return [...movies]
 }
 
 export function getRandomMovie(movies: string[]): string {
