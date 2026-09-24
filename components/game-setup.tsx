@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
@@ -39,8 +39,13 @@ export function GameSetup({ onStartGame }: GameSetupProps) {
   const [timePerRound, setTimePerRound] = useState(120)
   const [selectedCategories, setSelectedCategories] = useState<MovieCategory[]>(["bollywood"])
   const [gameMode, setGameMode] = useState<"individual" | "team">("team")
-  const [completedCount, setCompletedCount] = useState(getCompletedMovies().length)
+  // Start at 0 and read localStorage after mount, so the server and first client render match.
+  const [completedCount, setCompletedCount] = useState(0)
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false)
+
+  useEffect(() => {
+    setCompletedCount(getCompletedMovies().length)
+  }, [])
 
   const handleCategoryToggle = (category: MovieCategory) => {
     triggerHaptic("light")

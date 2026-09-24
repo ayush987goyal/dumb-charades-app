@@ -54,7 +54,8 @@ for (const file of files) {
     if (t !== t.trim()) errors.push(`${where}: leading/trailing whitespace`)
     if (/\s{2,}/.test(t)) errors.push(`${where}: double space`)
     if (/[^\x20-\x7E]/.test(t)) errors.push(`${where}: non-ASCII character (use plain ASCII spelling)`)
-    const words = t.split(/[\s-]+/).filter(Boolean).length
+    // Same rule as lib/word-count.ts: bracketed original titles are not counted.
+    const words = t.replace(/\([^)]*\)/g, " ").trim().split(/[\s-]+/).filter(Boolean).length
     if (words > 8) warnings.push(`${where}: ${words} words, consider the common short title`)
     const k = norm(t)
     if (seen.has(k)) errors.push(`${where}: duplicate of "${seen.get(k)}" in same file`)
