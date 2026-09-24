@@ -8,7 +8,7 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://v0-dumb-charades.vercel.app"),
+  metadataBase: new URL("https://playdumbcharades.vercel.app"),
   title: {
     default: "Dumb Charades Movie Generator - 1,000+ Bollywood, Hollywood & South Indian Movies",
     template: "%s | Dumb Charades Movie Generator",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://v0-dumb-charades.vercel.app",
+    url: "https://playdumbcharades.vercel.app",
     siteName: "Dumb Charades Movie Generator",
     title: "Dumb Charades Movie Generator - 1,000+ Bollywood & Global Movies",
     description:
@@ -81,7 +81,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   name: "Dumb Charades Movie Generator",
-  url: "https://v0-dumb-charades.vercel.app",
+  url: "https://playdumbcharades.vercel.app",
   applicationCategory: "GameApplication",
   operatingSystem: "Any",
   offers: {
