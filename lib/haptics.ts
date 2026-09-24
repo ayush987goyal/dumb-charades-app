@@ -98,7 +98,13 @@ export function triggerHaptic(type: HapticPatternType): void {
   try {
     const switchEls = ensureIOSHapticSwitch()
     if (switchEls) {
+      const previouslyFocused = document.activeElement as HTMLElement | null
       switchEls.label.click()
+      // The label click focuses the aria-hidden input; hand focus back so it never holds focus.
+      if (document.activeElement === switchEls.input) {
+        switchEls.input.blur()
+        previouslyFocused?.focus?.({ preventScroll: true })
+      }
       iosSwitchToggled = true
     }
   } catch {

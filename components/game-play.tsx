@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import { SkipForward, Check, Trophy } from "lucide-react"
+import { SkipForward, Check, Trophy, Undo2 } from "lucide-react"
 import type { GameConfig } from "@/lib/types"
 import { getMoviesByCategories, getRandomMovie } from "@/lib/movies"
 import { triggerHaptic, requestScreenWakeLock } from "@/lib/haptics"
@@ -16,6 +16,14 @@ interface GamePlayProps {
   globalCompletedMovieTitles: Set<string>
 }
 
+// One Got It / Skip tap during the current turn, kept so it can be undone.
+type TurnAction = {
+  movie: string
+  result: "got" | "skip"
+  // The card drawn to replace `movie`; returned to the deck on undo.
+  replacedBy: string
+}
+
 export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: GamePlayProps) {
   const [availableMovies, setAvailableMovies] = useState<string[]>([])
   const [currentMovie, setCurrentMovie] = useState<string>("")
@@ -25,6 +33,7 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
   const [skipped, setSkipped] = useState(0)
   const [timeRemaining, setTimeRemaining] = useState(config.timePerRound)
   const [isActive, setIsActive] = useState(true)
+  const [actions, setActions] = useState<TurnAction[]>([])
   const warningPlayedRef = useRef(false)
   const finalPlayedRef = useRef(false)
 
@@ -89,39 +98,72 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
     }
   }, [isActive, timeRemaining, score, skipped, completedMovieTitles, onGameEnd, playFinish])
 
-  const getNextMovie = useCallback(() => {
+  const getNextMovie = useCallback((): string => {
     const excludedTitles = new Set([...globalCompletedMovieTitles, ...shownInThisTurn])
     const unusedMovies = availableMovies.filter((movie) => !excludedTitles.has(movie))
 
+    let newMovie: string
     if (unusedMovies.length === 0) {
       const availableForRepeat = availableMovies.filter((movie) => !globalCompletedMovieTitles.has(movie))
-      const newMovie = getRandomMovie(availableForRepeat.length > 0 ? availableForRepeat : availableMovies)
-      setCurrentMovie(newMovie)
-      setShownInThisTurn((prev) => new Set([...prev, newMovie]))
+      newMovie = getRandomMovie(availableForRepeat.length > 0 ? availableForRepeat : availableMovies)
     } else {
-      const newMovie = getRandomMovie(unusedMovies)
-      setCurrentMovie(newMovie)
-      setShownInThisTurn((prev) => new Set([...prev, newMovie]))
+      newMovie = getRandomMovie(unusedMovies)
     }
+    setCurrentMovie(newMovie)
+    setShownInThisTurn((prev) => new Set([...prev, newMovie]))
+    return newMovie
   }, [availableMovies, globalCompletedMovieTitles, shownInThisTurn])
+
+  const recordAndAdvance = useCallback(
+    (result: TurnAction["result"]) => {
+      if (!currentMovie) return
+      const movie = currentMovie
+      setCompletedMovieTitles((prev) => new Set([...prev, movie]))
+      const replacedBy = getNextMovie()
+      setActions((prev) => [...prev, { movie, result, replacedBy }])
+    },
+    [currentMovie, getNextMovie],
+  )
 
   const handleNext = useCallback(() => {
     triggerHaptic("success")
     setScore((prev) => prev + 1)
-    if (currentMovie) {
-      setCompletedMovieTitles((prev) => new Set([...prev, currentMovie]))
-    }
-    getNextMovie()
-  }, [getNextMovie, currentMovie])
+    recordAndAdvance("got")
+  }, [recordAndAdvance])
 
   const handleSkip = useCallback(() => {
     triggerHaptic("skip")
     setSkipped((prev) => prev + 1)
-    if (currentMovie) {
-      setCompletedMovieTitles((prev) => new Set([...prev, currentMovie]))
+    recordAndAdvance("skip")
+  }, [recordAndAdvance])
+
+  const handleUndo = useCallback(() => {
+    const last = actions[actions.length - 1]
+    if (!last || timeRemaining === 0) return
+    triggerHaptic("light")
+    setActions((prev) => prev.slice(0, -1))
+    if (last.result === "got") {
+      setScore((prev) => Math.max(0, prev - 1))
+    } else {
+      setSkipped((prev) => Math.max(0, prev - 1))
     }
-    getNextMovie()
-  }, [getNextMovie, currentMovie])
+    setCompletedMovieTitles((prev) => {
+      const next = new Set(prev)
+      next.delete(last.movie)
+      return next
+    })
+    // Return the card that replaced it to the deck so it can be drawn again later
+    if (last.replacedBy !== last.movie) {
+      setShownInThisTurn((prev) => {
+        const next = new Set(prev)
+        next.delete(last.replacedBy)
+        return next
+      })
+    }
+    setCurrentMovie(last.movie)
+  }, [actions, timeRemaining])
+
+  const lastAction = actions[actions.length - 1]
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
@@ -208,6 +250,25 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
             >
               <Check className="h-5 w-5 sm:h-6 sm:w-6" />
               Got It!
+            </Button>
+          </div>
+
+          {/* Undo last action (this turn only) */}
+          <div className="flex justify-center">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleUndo}
+              disabled={!lastAction || timeRemaining === 0}
+              aria-label="Undo last action"
+              className="gap-1.5 text-muted-foreground max-w-full"
+            >
+              <Undo2 className="h-4 w-4 flex-shrink-0" />
+              <span className="truncate">
+                {lastAction && timeRemaining > 0
+                  ? `Undo "${lastAction.result === "got" ? "Got It" : "Skip"}" · ${lastAction.movie}`
+                  : "Undo"}
+              </span>
             </Button>
           </div>
         </CardContent>
