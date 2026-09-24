@@ -8,6 +8,7 @@ import { SkipForward, Check, Trophy, Undo2 } from "lucide-react"
 import type { GameConfig } from "@/lib/types"
 import { getMoviesByCategories, getRandomMovie } from "@/lib/movies"
 import { triggerHaptic, requestScreenWakeLock } from "@/lib/haptics"
+import { countWords } from "@/lib/word-count"
 import useSound from "use-sound"
 
 interface GamePlayProps {
@@ -172,7 +173,7 @@ export function GamePlay({ config, onGameEnd, globalCompletedMovieTitles }: Game
   }
 
   const progressPercentage = ((config.timePerRound - timeRemaining) / config.timePerRound) * 100
-  const wordCount = currentMovie ? currentMovie.trim().split(/[\s-]+/).filter(Boolean).length : 0
+  const wordCount = currentMovie ? countWords(currentMovie) : 0
 
   if (!currentMovie) {
     return (
