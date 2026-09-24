@@ -30,7 +30,6 @@ export const koreanMovies = [
   "The Attorney",
   "Masquerade",
   "The Throne",
-  "The Handmaiden",
   "Okja",
   "Snowpiercer",
   "Peninsula",

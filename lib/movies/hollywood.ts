@@ -60,7 +60,6 @@ export const hollywoodMovies = [
   "Dune",
   "Oppenheimer",
   "Everything Everywhere All at Once",
-  "Parasite",
   "Get Out",
   "A Quiet Place",
   "The Grand Budapest Hotel",

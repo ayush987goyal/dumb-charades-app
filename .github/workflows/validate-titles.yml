@@ -1,0 +1,22 @@
+name: Validate movie titles
+
+on:
+  pull_request:
+    paths:
+      - "lib/movies/**"
+      - "scripts/validate-titles.mjs"
+  push:
+    branches: [main]
+    paths:
+      - "lib/movies/**"
+      - "scripts/validate-titles.mjs"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node scripts/validate-titles.mjs

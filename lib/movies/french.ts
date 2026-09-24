@@ -1,5 +1,5 @@
 export const frenchMovies = [
-  "Amélie",
+  "Amelie",
   "The Intouchables",
   "La Vie en Rose",
   "The Artist",
@@ -7,7 +7,7 @@ export const frenchMovies = [
   "Portrait of a Lady on Fire",
   "The 400 Blows",
   "Breathless",
-  "Léon The Professional",
+  "Leon The Professional",
   "La Haine",
   "Irreversible",
   "A Prophet",
@@ -25,7 +25,7 @@ export const frenchMovies = [
   "Three Colors Blue",
   "Three Colors White",
   "The Diving Bell and the Butterfly",
-  "Les Misérables",
+  "Les Miserables",
   "Taken",
   "Lucy",
 ]

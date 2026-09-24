@@ -28,8 +28,6 @@ export const britishMovies = [
   "The Theory of Everything",
   "Bohemian Rhapsody",
   "Rocketman",
-  "1917",
-  "Dunkirk",
   "The Favourite",
   "Atonement",
   "Pride and Prejudice",
