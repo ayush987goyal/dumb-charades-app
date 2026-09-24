@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://v0-dumb-charades.vercel.app/sitemap.xml",
+    sitemap: "https://playdumbcharades.vercel.app/sitemap.xml",
   }
 }

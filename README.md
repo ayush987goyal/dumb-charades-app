@@ -2,7 +2,7 @@
 
 A fast, mobile-first party game and movie generator for playing Dumb Charades with friends and family. Built with Next.js, Tailwind CSS, and TypeScript.
 
-**Live app:** [https://v0-dumb-charades.vercel.app](https://v0-dumb-charades.vercel.app)
+**Live app:** [https://playdumbcharades.vercel.app](https://playdumbcharades.vercel.app)
 
 ## What is inside
 
