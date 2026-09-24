@@ -6,8 +6,8 @@ A fast, mobile-first party game and movie generator for playing Dumb Charades wi
 
 ## What is inside
 
-- **1,190 curated movies across 7 cinema categories:**
-  - **Bollywood (515 titles):** Hand-picked Hindi films from the 1950s through 2026 selected specifically for charades actability. Every movie either breaks down into concrete physical words or has a famous cultural signature pose. See [docs/bollywood-charades-movies-research.md](docs/bollywood-charades-movies-research.md) for the full catalog and acting cues.
+- **1,166 curated movies across 7 cinema categories:**
+  - **Bollywood (491 titles):** Hand-picked Hindi films from the 1950s through 2026, including the latest box-office hits, selected specifically for charades actability. Every movie either breaks down into concrete physical words or has a famous cultural signature pose. See [docs/bollywood-charades-movies-research.md](docs/bollywood-charades-movies-research.md) for the full catalog and acting cues.
   - **Hollywood (439 titles):** Animation, franchises, comedies, classics and recent hits that Indian groups know, picked so each title can be acted word by word. See [docs/research/hollywood-library.md](docs/research/hollywood-library.md).
   - **South Indian (120 titles):** Telugu, Tamil, Malayalam and Kannada films that Hindi-speaking groups know, mostly pan-India releases. Titles use the name Hindi audiences saw, with the original in brackets when it differs, e.g. "Makkhi (Eega)". See [docs/research/south-indian-library.md](docs/research/south-indian-library.md).
   - **Japanese (35 titles)**
